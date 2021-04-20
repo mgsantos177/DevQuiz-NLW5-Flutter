@@ -19,7 +19,7 @@ class _ChallengePageState extends State<ChallengePage> {
         ),
       ),
       body: QuizWidget(
-        title: 'O que o Flutter faz em um puteiro',
+        title: 'O que o Flutter faz ',
       ),
     );
   }

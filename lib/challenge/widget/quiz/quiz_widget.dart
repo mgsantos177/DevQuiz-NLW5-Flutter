@@ -20,7 +20,7 @@ class QuizWidget extends StatelessWidget {
             height: 24,
           ),
           AnswerWidget(
-            title: "Texto da questão bucetuda",
+            title: "Texto da questão 2",
             isSelected: true,
             isRight: true,
           ),
