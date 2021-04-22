@@ -1,29 +1,53 @@
 import 'package:devQuiz/challenge/widget/answer/answer_widget.dart';
 import 'package:devQuiz/core/app_text_styles.dart';
+import 'package:devQuiz/shared/models/answer_model.dart';
+import 'package:devQuiz/shared/models/question_model.dart';
 import 'package:flutter/material.dart';
 
-class QuizWidget extends StatelessWidget {
-  final String title;
+class QuizWidget extends StatefulWidget {
+  final QuestionModel question;
+  final VoidCallback onChange;
 
-  const QuizWidget({required this.title});
+  const QuizWidget({
+    required this.question,
+    required this.onChange,
+  });
+
+  @override
+  _QuizWidgetState createState() => _QuizWidgetState();
+}
+
+class _QuizWidgetState extends State<QuizWidget> {
+  int indexSelected = -1;
+
+  AnswerModel answer(int index) => widget.question.answers[index];
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Column(
         children: [
+          SizedBox(
+            height: 50,
+          ),
           Text(
-            title,
+            widget.question.title,
             style: AppTextStyles.heading,
           ),
           SizedBox(
             height: 24,
           ),
-          AnswerWidget(
-            title: "Texto da questão 2",
-            isSelected: true,
-            isRight: true,
-          ),
+          for (var i = 0; i < widget.question.answers.length; i++)
+            AnswerWidget(
+              disable: indexSelected != -1,
+              answer: answer(i),
+              isSelected: indexSelected == i,
+              onTap: () {
+                indexSelected = i;
+                widget.onChange();
+                setState(() {});
+              },
+            ),
         ],
       ),
     );
